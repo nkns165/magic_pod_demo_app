@@ -35,6 +35,9 @@ jobs:
         env:
           scheme: ${{ 'default' }}
           platform: ${{ 'iOS Simulator' }}
+          MAGICPOD_API_TOKEN: ${{secrets.MAGICPOD_API_TOKEN}}
+          MAGICPOD_ORGANIZATION: ${{secrets.MAGICPOD_ORGANIZATION}}
+          MAGICPOD_PROJECT: ${{secrets.MAGICPOD_PROJECT}}
         run: |
           app_path=`find /Users/runner/Library/Developer/Xcode/DerivedData/ -name "magic_pod_demo_app.app"`
           echo $app_path
