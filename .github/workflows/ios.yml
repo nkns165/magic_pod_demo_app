@@ -15,12 +15,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       - name: Set Default Scheme
+        env:
+          MAGICPOD_PROJECT: ${{ secrets.MAGICPOD_PROJECT }}
         run: |
           scheme_list=$(xcodebuild -list -json | tr -d "\n")
           default=$(echo $scheme_list | ruby -e "require 'json'; puts JSON.parse(STDIN.gets)['project']['targets'][0]")
           echo $default | cat >default
           echo Using default scheme: $default
-          echo "MAGICPOD_PROJECT=${{ secrets.MAGICPOD_PROJECT }}"
+          echo "MAGICPOD_PROJECT=${MAGICPOD_PROJECT}"
       - name: Build
         env:
           scheme: ${{ 'default' }}
@@ -36,7 +38,7 @@ jobs:
         env:
           scheme: ${{ 'default' }}
           platform: ${{ 'iOS Simulator' }}
-          MAGICPOD_API_TOKEN: "foo"
+          MAGICPOD_API_TOKEN: ${{ secrets.MAGICPOD_API_TOKEN }}
           MAGICPOD_ORGANIZATION: ${{ secrets.MAGICPOD_ORGANIZATION }}
           MAGICPOD_PROJECT: ${{ secrets.MAGICPOD_PROJECT }}
         run: |
