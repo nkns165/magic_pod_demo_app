@@ -29,6 +29,8 @@ jobs:
     steps:
     # Runs a single command using the runners shell
     - name: Download magicpod-api-client
+      env:
+          MAGICPOD_API_TOKEN: ${{ secrets.MAGIC_POD_API_TOKEN }} 
       run: |
         OS=linux
         FILENAME=magicpod-api-client
